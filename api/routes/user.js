@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const User = require('../models/user');
 const bcrypt = require('bcrypt');
+const User = require('../models/user');
+
 
 router.post('/signup',(req,res,next) => {
 
@@ -16,11 +17,11 @@ router.post('/signup',(req,res,next) => {
       }else{
           const user = new User({
               _id: mongoose.Types.ObjectId(),
-              email: {type: String, required: true},
-              passord: hash
+              email: req.body.email,
+              password: hash
           });
           user.save().then( result => {
-              console.log(user);
+              console.log(result);
               res.status(201).json({
                   msg: 'User created'
               });
