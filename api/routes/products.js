@@ -60,8 +60,10 @@ router.post('/', (req,res,next) => {
             }
         }
         }); 
-    }).catch(err => {console.log(err);
-    res.status(500).json({error:err });});
+    }).catch(
+        err => {console.log(err);
+    res.status(500).json({error:err });
+});
     
 });
 
@@ -69,13 +71,16 @@ router.get('/:productId',(req,res,next) => {
     const id = req.params.productID;
     Product.findById(id).exec().then(doc => {
         if(doc){
-        res.status(200).json(doc);}
-        else{
-            res.status(404).json({
-                msg:'no valid entry'
-            })
-        }
-        console.log(doc);
+        res.status(200).json( {
+            product: doc,
+            request:{
+                type:'GET',
+                description:' Get all products',
+                url : 'http://localhsot:3000/products'
+            }
+         } )}
+       
+        
     }).catch(err =>{console.log(err);  
 
         res.status(500).json({error:err});
@@ -93,7 +98,13 @@ router.patch('/:productId',(req,res,next) => {
     }
     Product.update({_id: id}, {$set :updateOps}).exec().then(result => {
         console.log(result);
-        res.status(200).json(result);
+        res.status(200).json({
+            message:'Product updated',
+            request:{
+                type:'GET',
+                url:'http://localhost/products/'+ id
+            }
+        });
     }).catch(err => {
         console.log(err);
         res.status(500).json({
