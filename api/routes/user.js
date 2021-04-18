@@ -9,7 +9,7 @@ router.post('/signup',(req,res,next) => {
 
   bcrypt.hash(req.body.password,10, (err,hash) => {
       if(err){
-
+        console.log(err);
         return res.status(500).json({
             error:err
         });
@@ -27,6 +27,7 @@ router.post('/signup',(req,res,next) => {
               });
               
           }).catch( err => {
+              console.log(err);
               res.status(500).json({
                   error: err
               });
