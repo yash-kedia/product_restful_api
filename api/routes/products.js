@@ -1,9 +1,12 @@
 const express = require('express');
+const router = express.Router(); 
 const Product = require('../models/product');
 const mongoose = require('mongoose');
-const { request } = require('../../app');
 
-const router = express.Router(); 
+
+
+
+
 
 
 router.get('/', (req,res,next) => {
@@ -37,6 +40,9 @@ router.get('/', (req,res,next) => {
 
 
 router.post('/', (req,res,next) => {
+
+    
+   
     
     const product = new Product({
         _id: new mongoose.Types.ObjectId(),
@@ -55,7 +61,7 @@ router.post('/', (req,res,next) => {
                 _id: result._id,
                 request:{
                 type:'GET',
-                url: 'https://localhost:3000'+request._id
+                url: 'https://localhost:3000'+result._id
                 
             }
         }
@@ -82,7 +88,11 @@ router.get('/:productId',(req,res,next) => {
                 description:' Get all products',
                 url : 'http://localhsot:3000/products'
             }
-         } )}
+         } )}else{
+             return res.status(500).json({
+                 msg:'No product found'
+             })
+         }
        
         
     }).catch(err =>{console.log(err);  
