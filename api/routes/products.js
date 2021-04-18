@@ -15,7 +15,7 @@ router.get('/', (req,res,next) => {
                  return {
                      name: doc.name,
                      price: doc.price,
-                     _id: doc.id,
+                     _id: doc._id,
                      request: {
                          type:'GET',
                          url: 'http://localhost:3000/products/'+doc._id
@@ -61,14 +61,18 @@ router.post('/', (req,res,next) => {
         }
         }); 
     }).catch(
-        err => {console.log(err);
-    res.status(500).json({error:err });
+        err => {
+            console.log(err);
+    res.status(500).json(
+        {
+            error:err 
+    });
 });
     
 });
 
 router.get('/:productId',(req,res,next) => {
-    const id = req.params.productID;
+    const id = req.params.productId;
     Product.findById(id).exec().then(doc => {
         if(doc){
         res.status(200).json( {
