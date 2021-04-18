@@ -4,12 +4,12 @@
 
 ##  /products      
 
-``
-    // GET -> to get all the products
+
+        / GET -> to get all the products
     
     
-    // POST -> to add new products
+        / POST -> to add new products
     
     
-    // PATCH -> to update existing products
- ``   
+        / PATCH -> to update existing products
+  
