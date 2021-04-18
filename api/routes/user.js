@@ -16,7 +16,7 @@ router.post('/signup',(req,res,next) => {
 
       }else{
           const user = new User({
-              _id: mongoose.Types.ObjectId(),
+              _id: new mongoose.Types.ObjectId(),
               email: req.body.email,
               password: hash
           });
@@ -31,11 +31,9 @@ router.post('/signup',(req,res,next) => {
               res.status(500).json({
                   error: err
               });
-          }
-              
-          );
+          });
       }
-  })
+  });
 
 });
 
